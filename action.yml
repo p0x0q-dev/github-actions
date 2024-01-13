@@ -123,10 +123,10 @@ runs:
       run: |-
         /usr/local/bin/kustomize edit set image image=${{ inputs.GAR_LOCATION }}-docker.pkg.dev/${{ inputs.PROJECT_ID }}/${{ inputs.REPOSITORY }}/${{ inputs.IMAGE }}:$GITHUB_SHA
         /usr/local/bin/kustomize build . | kubectl apply -f -
-        kubectl rollout status deployment/${{ inputs.DEPLOYMENT_NAME}} -n ${{ inputs.NAMESPACE }} --timeout=20m
-        kubectl get services -o wide -n ${{ inputs.NAMESPACE }} || true
+        # kubectl rollout status deployment/${{ inputs.DEPLOYMENT_NAME}} -n ${{ inputs.NAMESPACE }} --timeout=20m
+        # kubectl get services -o wide -n ${{ inputs.NAMESPACE }} || true
+        # kubectl get pods -n ${{ inputs.NAMESPACE }} | grep OutOfcpu | awk '{print $1}' | xargs kubectl delete pods -n ${{ inputs.NAMESPACE }} || true
 
-        kubectl get pods -n ${{ inputs.NAMESPACE }} | grep OutOfcpu | awk '{print $1}' | xargs kubectl delete pods -n ${{ inputs.NAMESPACE }} || true
       shell: bash
 
 branding:
