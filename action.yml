@@ -29,6 +29,10 @@ inputs:
     description: "The image name"
     required: true
 
+  GKE_CLUSTER:
+    description: "The GKE cluster name"
+    required: true
+
   GKE_ZONE:
     description: "The GKE cluster zone"
     required: true
@@ -72,6 +76,13 @@ runs:
       run: |-
         echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://${{ inputs.GAR_LOCATION }}-docker.pkg.dev
       shell: bash
+
+    - name: Set up GKE credentials
+      uses: google-github-actions/get-gke-credentials@v1
+      with:
+        cluster_name: ${{ inputs.GKE_CLUSTER }}
+        location: ${{ inputs.GKE_ZONE }}
+
 
     - name: App Build
       working-directory: ./
