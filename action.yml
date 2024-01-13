@@ -111,7 +111,7 @@ runs:
     #     audience: ${{ inputs.OIDC_AUDIENCE }}
 
     - name: Set up Kustomize
-      working-directory: ./
+      working-directory: k8s/overlays/${{ inputs.DEPLOY_ENV }}
       run: |-
         curl -sfL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.0.3/kustomize_v5.0.3_linux_amd64.tar.gz | tar xz
         chmod u+x ./kustomize
@@ -119,9 +119,8 @@ runs:
       shell: bash
 
     - name: App Deploy
-      working-directory: ./
+      working-directory: k8s/overlays/${{ inputs.DEPLOY_ENV }}
       run: |-
-        cd /root/deployment/${{ github.repository }}/k8s/overlays/${{ inputs.DEPLOY_ENV}}
         /usr/local/bin/kustomize edit set image image=${{ inputs.GAR_LOCATION }}-docker.pkg.dev/${{ inputs.PROJECT_ID }}/${{ inputs.REPOSITORY }}/${{ inputs.IMAGE }}:$GITHUB_SHA
         /usr/local/bin/kustomize build . | kubectl apply -f -
         kubectl rollout status deployment/${{ inputs.DEPLOYMENT_NAME}} -n ${{ inputs.NAMESPACE }} --timeout=20m
