@@ -118,3 +118,7 @@ runs:
 
         kubectl get pods -n ${{ inputs.NAMESPACE }} | grep OutOfcpu | awk '{print $1}' | xargs kubectl delete pods -n ${{ inputs.NAMESPACE }} || true
       shell: bash
+
+branding:
+  icon: 'cloud'
+  color: 'blue'
