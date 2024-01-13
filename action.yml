@@ -37,9 +37,10 @@ inputs:
     description: "The GKE cluster zone"
     required: true
 
-  DEPLOYMENT_NAME:
-    description: "The deployment name"
-    required: true
+  # kubectl rolloutしないなら不要
+  # DEPLOYMENT_NAME:
+  #   description: "The deployment name"
+  #   required: true
 
   OIDC_AUDIENCE:
     description: "The OIDC audience"
