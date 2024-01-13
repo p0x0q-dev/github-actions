@@ -1,12 +1,8 @@
 name: 'build and deploy on gke'
 author: 'p0x0q-dev'
 description: |-
-  This action builds and deploys a docker image on gke.
-  It uses Google Artifact Registry as a docker registry.
-  It uses kustomize to deploy the image.
-  It uses workload identity to authenticate to Google Cloud.
-  It uses a service account to authenticate to Google Artifact Registry.
-  It uses a service account to authenticate to Google Cloud.
+  GCPのWorkload Identityを使って、Docker Build, GKE Deploymentを行うComposite 
+
 
 inputs:
   WORKLOAD_IDENTITY_PROVIDER:
